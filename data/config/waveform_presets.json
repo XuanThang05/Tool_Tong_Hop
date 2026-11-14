@@ -1,0 +1,28 @@
+{
+    "Mẫu 1": {
+        "enable_bars": true,
+        "barColor": "#ffffff",
+        "barsToDraw": 64,
+        "barWidth": 13,
+        "spectrumSpacing": 6,
+        "barHeightMultiplier": 11,
+        "positionX": 50,
+        "positionY": 50,
+        "shadowBlur": 0,
+        "spectrumScale": 100,
+        "enable_particles": true,
+        "particleColor": "#ffffff",
+        "particleCount": 150,
+        "baseSpeed": 4,
+        "impact_amplitude": 202,
+        "particle_dir": false,
+        "bg_color": "#000000",
+        "minDecibel": -96,
+        "maxDecibel": -15,
+        "smoothingTimeConstant": 80,
+        "enable_text": false,
+        "artist_text": "Artist Name",
+        "song_text": "Song Name",
+        "remix_text": "Remix Text"
+    }
+}

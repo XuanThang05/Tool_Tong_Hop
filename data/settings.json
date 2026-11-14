@@ -1,0 +1,96 @@
+{
+    "pipeline": {
+        "scraper": false,
+        "plagiarism_check": true,
+        "gemini_clean": true,
+        "gemini_meta": false,
+        "tts": true,
+        "waveform": false,
+        "video_assemble": true
+    },
+    "telegram": {
+        "bot_token": "",
+        "chat_id": ""
+    },
+    "plagiarism": {
+        "similarity_threshold": 60,
+        "target_notebook": "Truyện_Audio"
+    },
+    "gemini": {
+        "api_keys": [
+            "AQ.Ab8RN6JBYVrxFCAFAetjJdKypQkrCOAffS0Wgijwq54G8DrsMA",
+            "AQ.Ab8RN6LREbwFtp_C29-p9cVIwTEACySWmUJFsCZso_L81_HZLA",
+            "AQ.Ab8RN6JrIU6wuo8wNf4sWCMTH_nmYiIA09MeI-z_NqjiwNMfZA",
+            "AQ.Ab8RN6IF-JnumXgrjONo9RsnwYugO44Tnx2i6kaCYPZHcVJPzw"
+        ],
+        "prompt_cleanup": "Hãy đóng vai một biên tập viên âm thanh. Nhiệm vụ của bạn là dọn dẹp và chuẩn bị văn bản truyện dưới đây để làm kịch bản thu âm bằng giọng đọc nhân tạo (TTS). Vui lòng thực hiện các bước sau:\nXóa bỏ tạp âm: LOẠI BỎ, XÓA  hoàn toàn các ký tự thừa, link trang web, tên miền (ví dụ: MonkeyDD.com), thông báo bản quyền, số thứ tự chương (Chương 1, Chương 2...), GIỚI THIỆU, lời kêu gọi ủng hộ, hoặc các con số phân đoạn (1, 2, 3...) đứng riêng lẻ,...\nSửa lỗi chính tả & Định dạng: Sửa các từ bị sai chính tả hoặc gõ tắt. Sửa các từ bị che giấu bằng dấu chấm (ví dụ: \"m.á.u\" thành \"máu\", \"l.ừ.a đ.ả.o\" thành \"lừa đảo\").\nTối ưu nhịp đọc TTS: Xóa các khoảng trắng (dòng trống) thừa thãi giữa các đoạn. Đảm bảo dấu câu (chấm, phẩy, chấm hỏi, chấm than) được đặt đúng chuẩn để AI biết cách ngắt nghỉ hơi. Xóa các biểu tượng cảm xúc (emoji) nếu có.\nPhiên âm từ ngoại lai/tiếng Anh: Vì hệ thống TTS tiếng Việt không đọc được tiếng Anh, bắt buộc phải dịch nghĩa hoặc phiên âm toàn bộ các từ tiếng Anh sang cách đọc tiếng Việt bằng các âm tiết tách rời.\nVí dụ: \"Livestream\" chuyển thành \"lai sờ trim\", \"OK\" chuyển thành \"ô kê\", \"smartphone\" chuyển thành \"sờ mát phôn\", \"app\" chuyển thành \"áp\", \"internet\" chuyển thành \"in tơ nét\", \"CEO\" chuyển thành \"xi y âu\".\n\n\nXử lý dấu ba chấm (...): Hệ thống TTS thường lỗi hoặc ngắt nhịp sai với dấu ba chấm. Bắt buộc xóa và thay thế toàn bộ dấu \"...\" bằng:\nDấu phẩy (,) nếu nằm giữa câu (nhằm tạo khoảng nghỉ ngắn chần chừ).\nDấu chấm (.) nếu nằm ở cuối câu (để kết thúc trọn vẹn và ép TTS ngắt hơi hẳn).\nTuyệt đối không để sót lại bất kỳ dấu \"...\" nào trong văn bản đầu ra.\n\n\nXử lý biểu cảm bằng dấu câu: Nếu gặp các câu thoại chỉ chứa dấu câu như ví dụ: Tôi: \"...\" hoặc Tôi: \"?\",...., hãy chuyển đổi chúng thành các câu văn miêu tả cảm xúc/hành động ngắn gọn, phù hợp với ngữ cảnh (ví dụ: \"Tôi cạn lời.\", \"Tôi im lặng.\", \"Tôi ngơ ngác.\", \"Tôi khó hiểu.\",...). Tuyệt đối không để lại các dòng thoại chỉ có dấu câu vì AI giọng đọc không thể phát âm.\nXử lý ngắt dòng tuyệt đối: Bất kỳ dòng văn bản nào đứng độc lập (như \"Văn án\", \"Chương...\", lời dẫn) nếu chưa có dấu câu ở cuối thì bắt buộc phải thêm dấu chấm (.) hoặc dấu hai chấm (:). Tuyệt đối không để một dòng kết thúc mà không có dấu câu để ép hệ thống TTS phải nghỉ ngắt nhịp trước khi đọc dòng tiếp theo.\nNgắt nhịp diễn cảm (Dramatic Pause): Chủ động thêm dấu phẩy (,) với các câu dài để tạo khoảng nghỉ ép TTS lấy hơi và nhấn nhá cảm xúc giống như người đọc diễn cảm. Phải hiểu đầy đủ ngữ nghĩa của câu trước khi đặt dấu. Chỉ ngắt tại ranh giới tự nhiên giữa các cụm ý hoặc mệnh đề, ở cuối một vế câu trọn vẹn ý nghĩa. Ưu tiên sự trôi chảy: Nhịp điệu tự nhiên phải đi đôi với sự mạch lạc của câu.  Không được ngắt giữa những từ tạo thành một cụm nghĩa hoàn chỉnh. \nBảo toàn nguyên tác: Tuyệt đối giữ nguyên văn phong, cốt truyện và toàn bộ lời thoại của nhân vật. Không tự ý tóm tắt hay thêm bớt nội dung. Loại bỏ, xóa hoàn toàn các con số mang ý nghĩa phân đoạn từ 1 đến hết, xóa loại bỏ thông báo Hoàn, Hết, Kết, Hoàn Thành, End... ở cuối truyện.\nLưu ý quan trọng: Chỉ trả về văn bản đã được làm sạch, tuyệt đối không thêm phần mở bài, kết bài hay bất kỳ lời bình luận giải thích nào của bạn.\nVăn bản cần xử lý: \n\n",
+        "prompt_metadata": "Generate a title and short description for this story:\n\n",
+        "threads_cleanup": 10
+    },
+    "waveform": {
+        "enable_bars": true,
+        "barColor": "#ffffff",
+        "barsToDraw": 64,
+        "barWidth": 13,
+        "spectrumSpacing": 6,
+        "barHeightMultiplier": 11,
+        "positionX": 0.5,
+        "positionY": 0.5,
+        "shadowBlur": 0,
+        "spectrumScale": 1.0,
+        "enable_particles": true,
+        "particleColor": "#ffffff",
+        "particleCount": 150,
+        "baseSpeed": 4,
+        "impact_amplitude": 202,
+        "particle_dir": -1,
+        "bg_color": "#000000",
+        "minDecibel": -96,
+        "maxDecibel": -15,
+        "smoothingTimeConstant": 0.8,
+        "enable_text": false,
+        "artist_text": "Artist Name",
+        "song_text": "Song Name",
+        "remix_text": "Remix Text",
+        "fallSpeed": 0.5,
+        "threads": 9,
+        "video_encoder": 1
+    },
+    "tts": {
+        "model": "ngochuyennew.onnx",
+        "speed": 1.02,
+        "volume": 1.0,
+        "threads": 5,
+        "pitch_shift": true,
+        "sweet_voice": true
+    },
+    "video": {
+        "bg_folder": "D:/videonenn",
+        "used_bg_folder": "D:/video/New folder",
+        "move_used": true,
+        "select_mode": 0,
+        "zoom": 110,
+        "opacity": 90,
+        "sub_enable": true,
+        "sub_font": "Times New Roman",
+        "sub_size": 60,
+        "sub_color": "#FFFFFF",
+        "sub_border_color": "#000000",
+        "sub_border_size": 4,
+        "sub_border_enable": true,
+        "sub_bold": true,
+        "sub_italic": true,
+        "sub_box": false,
+        "sub_box_opacity": 80,
+        "sub_alignment": 0,
+        "sub_margin_v": 118,
+        "video_encoder": 1,
+        "effect_enable": true,
+        "effect_video_path": "C:/Users/daoxu/Downloads/Audio/hoannuong01.mp4",
+        "static_bg_enable": true,
+        "static_bg_file": "C:/Users/daoxu/Downloads/Elderly_woman_holding_smoking_pipe_10058b95.mp4"
+    },
+    "paths": {
+        "output_dir": "D:/Tool_Tong_Hop/outputs"
+    }
+}

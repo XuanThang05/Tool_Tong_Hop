@@ -1,0 +1,14 @@
+﻿venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.idea/
+.vscode/
+outputs/
+sdfg.txt
+*.log
+Thumbs.db
+
+app/modules/check_trung_lap/.git_nested_backup/
